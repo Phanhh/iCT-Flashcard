@@ -1,3 +1,5 @@
+
+
 package ClassDesign;
 
 import com.google.gson.Gson;
@@ -139,7 +141,7 @@ public class FlashcardManagement {
 		String urlParameters  = "username="+username+"&token="+token+"&flashcard_id="+flashcard_id;
 		 byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
 		 int    postDataLength = postData.length;
-		 String request        = "https://ict-flashcard-server.herokuapp.com/api/fashcard/get";
+		 String request        = "https://ict-flashcard-server.herokuapp.com/api/flashcard/get";
 		 URL    url            = new URL( request );
 		 HttpURLConnection connection= (HttpURLConnection) url.openConnection();           
 		 connection.setDoOutput( true );
@@ -178,7 +180,7 @@ public class FlashcardManagement {
 		String urlParameters  = "username="+username+"&token="+token+"&collection_id="+collection_id;
 		 byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
 		 int    postDataLength = postData.length;
-		 String request        = "https://ict-flashcard-server.herokuapp.com/api/fashcard/getall";
+		 String request        = "https://ict-flashcard-server.herokuapp.com/api/flashcard/getall";
 		 URL    url            = new URL( request );
 		 HttpURLConnection connection= (HttpURLConnection) url.openConnection();           
 		 connection.setDoOutput( true );

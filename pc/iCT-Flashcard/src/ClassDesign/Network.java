@@ -18,6 +18,8 @@ import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
@@ -263,10 +265,39 @@ public Success Logout(String username, String token) throws IOException {
 		 raw.addProperty("oldPassword", oldPassword);
 		 raw.add("newUserInfo", subobj);
 	         
-	    // Gson gson = new Gson();
-	     Success check = new Success(); 
-	     return check;
-	        	
+		 URL    url            = new URL( request );
+		 HttpURLConnection connection= (HttpURLConnection) url.openConnection();           
+		 connection.setDoOutput( true );
+		 connection.setInstanceFollowRedirects( false );
+		 connection.setRequestMethod( "POST" );
+		 connection.setRequestProperty( "Content-Type", "application/json");
+		 connection.setRequestProperty( "Accept", "application/json");
+		 connection.setRequestProperty( "charset", "utf-8");
+		 connection.setUseCaches( false );
+	         
+	        // Write data
+		 OutputStream os = connection.getOutputStream();
+         os.write(raw.toString().getBytes("UTF-8"));
+         os.close();
+			
+		 System.out.println(raw.toString());
+	         
+	        // Read response
+	        StringBuilder responseSB = new StringBuilder();
+	        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+	          
+	        String line;
+	        while ( (line = br.readLine()) != null)
+	            responseSB.append(line);
+	                 
+	        // Close streams
+	        br.close();
+
+	        String result = responseSB.toString();
+	        System.out.println(result);
+	        Gson gson = new Gson();
+	        Success check = gson.fromJson(result, Success.class); 
+	        return check;
 	 }
 
 }

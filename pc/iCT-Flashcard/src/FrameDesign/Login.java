@@ -27,8 +27,15 @@ import java.awt.Desktop;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 
+import ClassDesign.AllCollections;
 import ClassDesign.CheckLogin;
+import ClassDesign.CollectionInfor;
+import ClassDesign.CollectionManagement;
+import ClassDesign.Flashcard;
+import ClassDesign.FlashcardInfor;
+import ClassDesign.FlashcardManagement;
 import ClassDesign.Network;
+import ClassDesign.Profile;
 import ClassDesign.User;
 import ClassDesign.UserInfor;
 
@@ -50,6 +57,7 @@ public class Login extends JFrame {
 				try {
 					Login frame = new Login();
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -223,7 +231,9 @@ public class Login extends JFrame {
 						System.out.println(mainuser.getEmail());
 						System.out.println(mainuser.getFullname());
 						System.out.println(mainuser.getBio());
-						
+						CollectionManagement colma = new CollectionManagement();
+						CollectionInfor tmp = colma.getAllColInfo("admin", "bd5efe7811148768b88c5b3a777ae8bbfbb2d22b");
+						AllCollections.getAllCollections().setCollection(tmp.getData());
 						Dashboard main = new Dashboard();
 						main.setVisible(true);
 					} catch (IOException e) {
